@@ -174,8 +174,8 @@ td, th {
 				<th width="120">Department</th>
 				<th width="120">Mobile</th>
 				<th width="120">Email</th>
-				<th width="120">Salary</th>
 				<th width="120">Address</th>
+				<th width="120">Salary</th>
 			</tr>
 			
 			<c:forEach items="${employees}" var="emp">

@@ -141,21 +141,53 @@ public class EmployeeService implements EmployeeInterface{
 		
 		Query query = session.createQuery("Select e from Employee e where e.email=:em");
 		query.setParameter("em",email);
-		
 		Employee employee2 = (Employee) query.list().get(0);
 		
-		System.out.println("inside updateEmployeeByEmailProcess service" + employee2 );
 		
-		Query query1 = session.createQuery("Delete From Employee e where e.email=:em");
-		query1.setParameter("em",email);
-		query1.executeUpdate();
+		System.out.println("inside updateEmployeeByEmailProcess service" + employee2 );
+
 		
 		try {
 			
 			System.out.println("inside try of updateEmployeeByEmailProcess service");
-			employeeUpdate.setEmail(email);
-			System.out.println(employeeUpdate);
-			session.save(employeeUpdate);
+			Employee getEmployee =(Employee) session.get(Employee.class, employee2.getId());
+
+//			name
+			 if(employeeUpdate.getName().isEmpty()) {
+			 }{
+				 getEmployee.setName(employeeUpdate.getName());
+			 }
+			 
+//			 lastName
+			 if(employeeUpdate.getLastName().isEmpty()) {
+			 }else {
+				 getEmployee.setLastName(employeeUpdate.getLastName());;
+			 }
+			 
+//			 Department
+			 if(employeeUpdate.getDepartment().isEmpty()) {
+			 }else {
+				 getEmployee.setDepartment(employeeUpdate.getDepartment());
+			 }
+			 
+//			 Mobile
+			 if(employeeUpdate.getMobile().isEmpty()) {
+			 }else {
+				 getEmployee.setMobile(employeeUpdate.getMobile());
+			 }
+//			 address
+			 if(employeeUpdate.getAddress().isEmpty()) {
+			 }else {
+				 getEmployee.setAddress(employeeUpdate.getAddress());
+			 }
+			 
+//			 salary
+			 if(employeeUpdate.getSalary() == null) {
+			 }else {
+				 getEmployee.setSalary(employeeUpdate.getSalary());
+			 }
+			 
+			 session.update(getEmployee);
 			
 			transaction.commit();
 			
