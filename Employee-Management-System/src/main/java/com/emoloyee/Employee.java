@@ -112,5 +112,11 @@ public class Employee {
 		return "Employee [id=" + id + ", name=" + name + ", lastName=" + lastName + ", department=" + department
 				+ ", mobile=" + mobile + ", email=" + email + ", address=" + address + ", salary=" + salary + "]";
 	}
+	public Employee(Integer id) {
+		super();
+		this.id = id;
+	}
+	
+	
 	
 }

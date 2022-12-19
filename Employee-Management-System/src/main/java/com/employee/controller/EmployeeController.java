@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -46,11 +47,11 @@ public class EmployeeController {
 		
 		if(length == 10) {
 			
-			if((employee.getName().isEmpty() &&
-				employee.getLastName().isEmpty() &&
-				employee.getDepartment().isEmpty() &&
-				employee.getEmail().isEmpty() &&
-				employee.getAddress().isEmpty()) == false ){
+			if((employee.getName().isEmpty() == false)&&
+				(employee.getLastName().isEmpty() == false)&&
+				(employee.getDepartment().isEmpty() == false)&&
+				(employee.getEmail().isEmpty()== false) &&
+				(employee.getAddress().isEmpty() == false) &&(employee.getSalary() != null)){
 				
 				Employee employee1 = employeeDao.saveEmployee(employee);
 
@@ -110,7 +111,6 @@ public class EmployeeController {
 	
 	Employee employeeOne;
 	String email= "";
-
 	
 	@RequestMapping( path ="/updateEployeeByEmail", method=RequestMethod.POST )
 	public String updateEmployeeValidation(@ModelAttribute Employee empEmail,Model model) {
@@ -130,6 +130,7 @@ public class EmployeeController {
 		employeeOne =  employeeDao.getEmployeeByEmail(email);
 		
 		if(employeeOne != null) {
+			System.out.println("Inside update Form");
 			return "updateEmployeeForm";
 		}else {
 			model.addAttribute("message","No Employee Registered With Provided Email.");
@@ -191,7 +192,7 @@ public class EmployeeController {
 
 			System.out.println("-----" + employees + "------");
 			model.addAttribute("message", "Details of the Employee having the Email " + " " + employeeemail.getEmail() );
-			return "getAllEmployees";
+			return "showDetails";
 			
 		}else{
 			model.addAttribute("message","Employee Not Registered.");
@@ -230,8 +231,7 @@ public class EmployeeController {
 		} catch (Exception e) {
 			
 			model.addAttribute("message","Employee Not Found.");
-			return "saveResult";
-			
+			return "saveResult";	
 		}
 		
 		
@@ -239,10 +239,10 @@ public class EmployeeController {
 			
 			model.addAttribute("employees",employees);
 			model.addAttribute("employee", new Employee());
-
+			
 			System.out.println("-----" + employees + "------");
 			model.addAttribute("message", "Details of the Deleted Employee Are " );
-			return "getAllEmployees";
+			return "showDetails";
 			
 		}else{
 			model.addAttribute("message","Employee Not Found.");
@@ -251,7 +251,6 @@ public class EmployeeController {
 		
 	}
 //	[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[delete employees]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
-	
 	
 	@RequestMapping( path ="/getAllDeletedEmployees", method=RequestMethod.GET )
 	public String getAllDletedEmployees(Model model) {
@@ -265,7 +264,7 @@ public class EmployeeController {
 			System.out.println("-----" + employees + "------");
 			model.addAttribute("message", "Deleted Employee List");
 
-			return "getAllEmployees";
+			return "showDetails";
 			
 		}else {
 			model.addAttribute("message","No Employee is  Deleted");
@@ -273,6 +272,67 @@ public class EmployeeController {
 		}
 
 	}
+	
+	
+//	[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[ Update Employee By Id ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+	
+	Employee updateEmpById;
+	String updateEmpEmail;
+	
+	@RequestMapping(path="/updateEmployeeById/{id}", method=RequestMethod.GET)
+	public String updateEmployeeByID(@PathVariable("id") int id,Model model) {
+	
+		System.out.println(id);
+		updateEmpById = employeeDao.getEmployeeById(id);
+		
+		updateEmpEmail = updateEmpById.getEmail();
+				
+		return "updateEmploeeById";		
+	}
+	
+	@RequestMapping(path = "/updateEployeeByIdProcess" , method= RequestMethod.POST)	
+	public String updateEployeeByIdProcess(@ModelAttribute Employee getEmployeeId,Model model){
+		
+		Employee employee = employeeDao.updateEmployeeByEmailProcess( updateEmpById , updateEmpEmail);
+		
+		model.addAttribute("message","Employee Details Updated Successfully.");
+		
+	return "saveResult";
+	
+	}
+	
+	
+//[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[Delete Employee By Id]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+	
+	Employee deletedEmployee;
+	
+	@RequestMapping(path="/deleteEmployeeById/{id}", method= RequestMethod.GET)
+	public String deleteEmployeeById(@PathVariable("id") Integer id) {
+		
+		deletedEmployee = employeeDao.getEmployeeById(id);
+		
+		return "redirect:/deleteEmployeeByIdprocess";	
+		
+	}
+	
+	@RequestMapping(path="/deleteEmployeeByIdprocess", method = RequestMethod.GET)
+	public String deleteEployeeById(Model model){
+		
+		Employee employeeDelete = employeeDao.deleteEmployeeByEmail(deletedEmployee.getEmail());
+		
+		List<Employee> employees = new ArrayList<Employee>();
+		employees.add(employeeDelete);
+		
+			model.addAttribute("employees",employees);
+			model.addAttribute("employee", new Employee());
+			
+			model.addAttribute("message", "Details of the Deleted Employee Are " );
+			
+			return "showDetails";
+		
+	}
+	
+	
 	
 	
 }

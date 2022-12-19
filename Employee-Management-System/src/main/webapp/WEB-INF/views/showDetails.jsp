@@ -176,8 +176,6 @@ td, th {
 				<th width="120">Email</th>
 				<th width="120">Address</th>
 				<th width="120">Salary</th>
-				<th width="120">Edit</th>
-				<th width="120">Delete</th>
 			</tr>
 	
 			<c:forEach items="${employees}" var="emp">
@@ -190,8 +188,7 @@ td, th {
 					<td>${emp.email}</td>
 					<td>${emp.address}</td>
 					<td>${emp.salary}</td>
-					<td><a href="<c:url value='/updateEmployeeById/${emp.id}' />">Edit</a></td>
-					<td><a href="<c:url value='/deleteEmployeeById/${emp.id}' />">Delete</a></td>
+					
 				</tr>
 			</c:forEach>
 		</table>

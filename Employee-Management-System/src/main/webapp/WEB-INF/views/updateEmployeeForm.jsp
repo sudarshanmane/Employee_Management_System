@@ -132,7 +132,7 @@
    <div  class="container" >
 
        <h1 class= "text-center">To Update Employee Fill Following Details</h1>
-    <form action="updateEployeeByEmailProcess" method="post">
+    <form action="updateEployeeByEmailProcess" method="POST">
     
       <!-- Employee First Name  -->
    <div class="form-group" >

@@ -1,45 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+      <%@page isELIgnored="false" %>
 <!DOCTYPE html>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
 <head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+   <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
 <style type="text/css">
 
-.blue-button {
-	background: #25A6E1;
-	filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#25A6E1',
-		endColorstr='#188BC0', GradientType=0);
-	padding: 3px 5px;
-	color: #fff;
-	font-family: 'Helvetica Neue', sans-serif;
-	font-size: 12px;
-	border-radius: 2px;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 4px;
-	border: 1px solid #1A87B9
-}
+      
 
-table {
-	font-family: "Helvetica Neue", Helvetica, sans-serif;
-	width: 50%;
-}
-
-th {
-	background: SteelBlue;
-	color: white;
-}
-
-td, th {
-	border: 1px solid gray;
-	width: 25%;
-	text-align: left;
-	padding: 5px 10px;
-	}
-	
-	
        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
         body{
             margin: 0px;
@@ -121,25 +100,13 @@ td, th {
         align-items: center;
         justify-content: space-around;
         margin-left: 10%
-        }
-     
-     #arrangeList{
         
-        margin: auto;
-        display: flex;
-        align-content:center; 
-
-        flex-direction: column;
-        justify-content: center;
-        display: grid;
-        text-align: center;
-     }
-     
-      #navbar>a{
+        }
+        
+        #navbar>a{
             color: #d4ff00;
         }
-     
-     #text-center{
+             .text-center{
         color: #112ed4;
             text-shadow: 2px 0 0px #800040, 3px 2px 0px rgba(77,0,38,0.5), 3px 0 3px #FF002B, 5px 0 3px #800015, 6px 2px 3px rgba(77,0,13,0.5), 6px 0 9px #FF5500, 8px 0 9px #802A00, 9px 2px 9px rgba(77,25,0,0.5), 9px 0 18px #FFD500, 11px 0 18px #806A00, 12px 2px 18px rgba(77,66,0,0.5), 12px 0 30px #D4FF00, 14px 0 30px #6A8000, 15px 2px 30px rgba(64,77,0,0.5), 15px 0 45px #80FF00, 17px 0 45px #408000, 17px 2px 45px rgba(38,77,0,0.5);
             position: relative;
@@ -147,59 +114,77 @@ td, th {
             text-shadow: 0px 15px 5px rgba(0,0,0,0.1),
                  10px 20px 5px rgba(0,0,0,0.05),
                  -10px 20px 5px rgba(0,0,0,0.05);
-     
      }
-}</style>
-<meta charset="ISO-8859-1">
-<title>EMS</title>
+        
+     
+</style>
+
 </head>
 <body>
-
+ 
         
     <div id="navbar"> 
         <div><img src="https://github.com/sudarshanmane/Hotstar/blob/main/Screenshot%20(2023).png?raw=true" alt=""></div>
         <a href="/Employee-Management-System"><div><h1>Employee Management System</h1></div></a>
     </div>
 
+     
+   <div  class="container" >
 
-	<div id="arrangeList">
-	   <h1 id="text-center"> ${message } </h1>
-	<c:if test="${!empty employees}">
-	
-		<table class="tg">
-			<tr>
-				<th width="80">Id</th>
-				<th width="120">Name</th>
-				<th width="120">LastName</th>
-				<th width="120">Department</th>
-				<th width="120">Mobile</th>
-				<th width="120">Email</th>
-				<th width="120">Address</th>
-				<th width="120">Salary</th>
-				<th width="120">Edit</th>
-				<th width="120">Delete</th>
-			</tr>
-	
-			<c:forEach items="${employees}" var="emp">
-				<tr>			
-					<td>${emp.id}</td>
-					<td>${emp.name}</td>
-					<td>${emp.lastName}</td>
-					<td>${emp.department}</td>
-					<td>${emp.mobile}</td>
-					<td>${emp.email}</td>
-					<td>${emp.address}</td>
-					<td>${emp.salary}</td>
-					<td><a href="<c:url value='/updateEmployeeById/${emp.id}' />">Edit</a></td>
-					<td><a href="<c:url value='/deleteEmployeeById/${emp.id}' />">Delete</a></td>
-				</tr>
-			</c:forEach>
-		</table>
-	</c:if>
-	</div>>
-	
-	
-	<div id="home">
+       <h1 class= "text-center">To Update Employee Fill Following Details</h1>
+    <form action="/Employee-Management-System/updateEployeeByIdProcess" method="POST">
+    
+      <!-- Employee First Name  -->
+   <div class="form-group" >
+<!--     <label for="name">Employee First Name</label>
+ -->    <input name="name"type="text"  class="form-control" id="exampleInputEmail1" placeholder="Employee First Name">
+  </div>
+  
+    <!-- Employee Last Name-->
+   <div class="form-group" >
+    <!-- <label for="lastname">Last Name</label> -->
+    <input name="lastName"type="text"  class="form-control" id="exampleInputEmail1" placeholder="Employee Last Name">
+  </div>
+    
+
+  <div class="form-group">
+<!--     <label for="department">Employee Department</label>
+ -->    <input name="department" type="text"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Employee Department">
+  </div>
+  
+  
+   <div class="form-group">
+<!--     <label for="mobile">Mobile</label>
+ -->    <input name="mobile" type="text"  class="form-control" id="exampleInputEmail1"  placeholder="Employee Mobile">
+  </div>
+ 
+
+ <div class="form-group">
+<!--     <label for="">Employee Address</label>
+ -->    <input name="address" type="text"  class="form-control" id="exampleInputEmail1"  placeholder="Employee Address">
+  </div>
+  
+
+ <div class="form-group">
+<!--     <label for="">Employee Salary</label>
+ -->    <input name="salary" type="text"  class="form-control" id="exampleInputEmail1"  placeholder="Employee Salary">
+  </div>
+
+ 
+    <div class= "container text-center" >  <button type="submit" class="btn btn-success">Submit</button>
+    </div>
+  </form>
+
+  
+   </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
+  
+  <div id="home">
       <a id="ancher" href="http://localhost:8080/Employee-Management-System">  <h5>
              Return to Home Page
         </h5>

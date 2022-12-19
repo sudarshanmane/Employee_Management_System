@@ -281,9 +281,31 @@ public class EmployeeService implements EmployeeInterface{
 			return null;
 		}
 		
+	}
+	
+//	[[[[[[[[[[[[[[[[[[[[[[[[[[[Update Employee By Id]]]]]]]]]]]]]]]]]]]]]]]]]]]
+
+
+	public Employee getEmployeeById(Integer empId) {
+
+		Configuration configuration = new Configuration();
+		configuration.configure("hibernate.cfg.xml");
+		
+		SessionFactory factory = configuration.buildSessionFactory();
+		
+		Session session = factory.openSession();
+		
+		Transaction transaction = session.beginTransaction();
+		
+			Employee employee = (Employee) session.get(Employee.class, empId);
+			
+			transaction.commit();
+			session.close();
+			factory.close();
+			
+		return employee;
+		
 		
 	}
-
-	
 
 }
